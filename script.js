@@ -7,7 +7,6 @@ const board = JXG.JSXGraph.initBoard(BOARDID, {
 
 //TODO:
 //  import/export files
-//  add static points
 //  add angles
 
 ///////////////////////////////////////////////////////////////////
@@ -53,7 +52,7 @@ function highlightPoint(point) {
 function unhighlightPoint() {
   if (highlighted_point == undefined) return;
   highlighted_point.setAttribute({
-    color: "red",
+    color: highlighted_point.getAttribute("fixed") ? "black" : "red",
   });
   highlighted_point = undefined;
 }
@@ -75,11 +74,12 @@ function createSegment(p1, p2) {
   });
 }
 
-function createPoint(coords) {
+function createPoint(coords, fixed = false) {
   return board.create("point", [coords.usrCoords[1], coords.usrCoords[2]], {
     name: "",
-    color: "red",
+    color: fixed ? "black" : "red",
     userCreated: true,
+    fixed: fixed,
   });
 }
 
