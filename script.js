@@ -143,6 +143,16 @@ board.on("move", (e) => {
 
 ///////////////////////////////////////////////////////////////////
 
+function toggle_highlighted_point_fixed() {
+    if(highlighted_point == undefined) return;
+
+    let is_fixed = highlighted_point.getAttribute("fixed")
+    highlighted_point.setAttribute({
+        fixed: !is_fixed,
+        color: is_fixed ? "red" : "black"
+    })
+}
+
 function moveBoundingBox(dx, dy) {
   var boundingBox = board.getBoundingBox();
   var xRange = boundingBox[2] - boundingBox[0];
@@ -192,6 +202,8 @@ document.onkeydown = function (e) {
     case "ArrowRight":
       moveBoundingBox(step, 0);
       break;
+    case "f":
+      toggle_highlighted_point_fixed();
     default:
       break;
   }
