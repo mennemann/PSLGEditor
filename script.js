@@ -75,43 +75,59 @@ function createSegment(p1, p2) {
   });
 }
 
+function createPoint(coords) {
+  return board.create("point", [coords.usrCoords[1], coords.usrCoords[2]], {
+    name: "",
+    color: "red",
+    userCreated: true,
+  });
+}
+
 function handleDown(e) {
-  let objType = undefined;
   let coords = getMouseCoords(e);
   let objs = board.getAllUnderMouse(e);
-  let handle = undefined;
+
+  let segmentHandle = undefined;
+  let pointHandle = undefined;
 
   for (let i in objs) {
-    if (objs[i].elType === "segment" || objs[i].elType === "point") {
-      objType = objs[i].elType;
-      handle = objs[i];
-      break;
-    }
+    if (objs[i].elType === "segment" && segmentHandle == undefined)
+      segmentHandle = objs[i];
+    if (objs[i].elType === "point" && pointHandle == undefined)
+      pointHandle = objs[i];
   }
-
 
   let keep_highlight = false;
 
   if (e.button === 0) {
     // left click
-
-    if (objType == undefined) {
-      if (highlighted_point == undefined)
-        board.create("point", [coords.usrCoords[1], coords.usrCoords[2]], {
-          name: "",
-          color: "red",
-          userCreated: true,
-        });
-    } else if (objType == "point") {
+    if (pointHandle == undefined && segmentHandle == undefined) {
+      // clicking empty space
+      if (highlighted_point == undefined) createPoint(coords);
+    } else if (pointHandle != undefined) {
+      // clicking a point
       if (highlighted_point == undefined) {
-        highlightPoint(handle);
+        highlightPoint(pointHandle);
         keep_highlight = true;
-      } else if (highlighted_point != handle) {
-        createSegment(highlighted_point, handle);
+      } else if (highlighted_point != pointHandle) {
+        createSegment(highlighted_point, pointHandle);
       }
+    } else if (segmentHandle != undefined) {
+      // clicking segment (split)
+      let p1 = segmentHandle.point1;
+      let p2 = segmentHandle.point2;
+      board.removeObject(segmentHandle);
+      let p3 = createPoint(coords);
+      createSegment(p1, p3);
+      createSegment(p2, p3);
     }
   } else if (e.button === 2) {
-    board.removeObject(handle);
+    // right click
+    if (pointHandle) {
+      board.removeObject(pointHandle);
+    } else if (segmentHandle) {
+      board.removeObject(segmentHandle);
+    }
   }
 
   if (!keep_highlight) unhighlightPoint();
