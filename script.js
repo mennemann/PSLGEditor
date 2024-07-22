@@ -144,13 +144,13 @@ board.on("move", (e) => {
 ///////////////////////////////////////////////////////////////////
 
 function toggle_highlighted_point_fixed() {
-    if(highlighted_point == undefined) return;
+  if (highlighted_point == undefined) return;
 
-    let is_fixed = highlighted_point.getAttribute("fixed")
-    highlighted_point.setAttribute({
-        fixed: !is_fixed,
-        color: is_fixed ? "red" : "black"
-    })
+  let is_fixed = highlighted_point.getAttribute("fixed");
+  highlighted_point.setAttribute({
+    fixed: !is_fixed,
+  });
+  unhighlightPoint();
 }
 
 function moveBoundingBox(dx, dy) {
