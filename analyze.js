@@ -32,6 +32,8 @@ function createTriangle(p1, p2, p3) {
   p2.setAttribute({ color: "green" });
   p3.setAttribute({ color: "green" });
 
+  if (highlighted_point) highlightPoint(highlighted_point);
+
   return board.create("polygon", [p1, p2, p3]);
 }
 
