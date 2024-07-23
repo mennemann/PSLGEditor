@@ -5,36 +5,6 @@ const board = JXG.JSXGraph.initBoard(BOARDID, {
   axis: true,
 });
 
-//TODO:
-//  import/export files
-//  add angles
-
-///////////////////////////////////////////////////////////////////
-
-let temp_objects = [];
-
-function analyzeBoard() {
-  return;
-  const points = [];
-  const segments = [];
-  for (let id in board.objects) {
-    const obj = board.objects[id];
-
-    if (!obj.getAttribute("userCreated")) continue;
-
-    if (obj.elType === "point") {
-      points.push(obj);
-    } else if (obj.elType === "segment") {
-      segments.push(obj);
-    }
-  }
-
-  console.log(points, points.length);
-  console.log(segments, segments.length);
-}
-
-///////////////////////////////////////////////////////////////////
-
 function getMouseCoords(e) {
   var pos = board.getMousePosition(e);
   return new JXG.Coords(JXG.COORDS_BY_SCREEN, pos, board);
