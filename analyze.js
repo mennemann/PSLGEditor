@@ -283,7 +283,7 @@ function clearAnalysis() {
     if (obj.elType === "point") {
       obj.setAttribute({ color: obj.getAttribute("fixed") ? "black" : "red" });
     } else if (obj.elType === "segment") {
-      obj.setAttribute({ color: "navy" });
+      obj.setAttribute({ color: "#0072B2" });
     }
   }
 
