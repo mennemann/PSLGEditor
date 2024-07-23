@@ -35,12 +35,6 @@ function createTriangle(p1, p2, p3) {
   return board.create("polygon", [p1, p2, p3]);
 }
 
-// center black : fixed point
-//  center red : movable
-//  full blue: highlighted
-//  rim green: part of triangle
-//  rim red: not part of triangle
-
 function create_smallest_angle(anchor, p1, p2) {
   let a = board.create("angle", [p1, anchor, p2]);
 
@@ -70,6 +64,20 @@ function exists_edge(p1, p2, edges) {
       return true;
   }
   return false;
+}
+
+function isPointInTriangle(triangle, point) {
+  const [, x1, y1] = triangle.vertices[0].coords.usrCoords;
+  const [, x2, y2] = triangle.vertices[1].coords.usrCoords;
+  const [, x3, y3] = triangle.vertices[2].coords.usrCoords;
+  const [, x, y] = point.coords.usrCoords;
+
+  const denominator = (y2 - y3) * (x1 - x3) + (x3 - x2) * (y1 - y3);
+  const u = ((y2 - y3) * (x - x3) + (x3 - x2) * (y - y3)) / denominator;
+  const v = ((y3 - y1) * (x - x3) + (x1 - x3) * (y - y3)) / denominator;
+  const w = 1 - u - v;
+
+  return 0 < u && u < 1 && 0 < v && v < 1 && 0 < w && w < 1;
 }
 
 let triangles = [];
@@ -110,6 +118,16 @@ function analyzeBoard() {
     }
   }
 
+  triangles = triangles.filter((triangle) => {
+    for (let i in points) {
+      if (isPointInTriangle(triangle, points[i])) {
+        board.removeObject(triangle);
+        return false;
+      }
+    }
+    return true;
+  });
+
   for (let i in triangles) {
     let triangle = triangles[i];
 
@@ -135,7 +153,7 @@ function analyzeBoard() {
       ),
     );
   }
-  
+
   if (highlighted_point) highlightPoint(highlighted_point);
 }
 
