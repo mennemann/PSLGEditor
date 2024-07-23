@@ -164,15 +164,19 @@ document.onkeydown = function (e) {
       zoomBoundingBox(-scale);
       break;
     case "ArrowUp":
+      e.preventDefault();
       moveBoundingBox(0, -step);
       break;
     case "ArrowDown":
+      e.preventDefault();
       moveBoundingBox(0, step);
       break;
     case "ArrowLeft":
+      e.preventDefault();
       moveBoundingBox(-step, 0);
       break;
     case "ArrowRight":
+      e.preventDefault();
       moveBoundingBox(step, 0);
       break;
     case "f":
