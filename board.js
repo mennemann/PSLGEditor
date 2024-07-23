@@ -95,7 +95,7 @@ function handleDown(e) {
   } else if (e.button === 2) {
     // right click
     if (pointHandle) {
-      board.removeObject(pointHandle);
+      if (!pointHandle.getAttribute("fixed")) board.removeObject(pointHandle);
     } else if (segmentHandle) {
       board.removeObject(segmentHandle);
     }
