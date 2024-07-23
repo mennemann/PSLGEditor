@@ -148,6 +148,7 @@ let angles = [];
 let intersecting_segments = [];
 
 function analyzeBoard() {
+  board.suspendUpdate();
   const points = [];
   const segments = [];
   for (let id in board.objects) {
@@ -240,25 +241,28 @@ function analyzeBoard() {
   }
 
   if (highlighted_point) highlightPoint(highlighted_point);
+  board.unsuspendUpdate();
 }
 
 function clearAnalysis() {
-  triangles.forEach((obj) => {
-    obj.vertices.forEach((p) => {
-      p.setAttribute({ color: p.getAttribute("fixed") ? "black" : "red" });
-    });
-    board.removeObject(obj);
-  });
+  board.suspendUpdate();
+  board.removeObject(triangles);
+  board.removeObject(angles);
 
-  angles.forEach((obj) => {
-    board.removeObject(obj);
-  });
+  for (let id in board.objects) {
+    const obj = board.objects[id];
 
-  intersecting_segments.forEach((obj) => {
-    obj.setAttribute({ color: "green" });
-  });
+    if (!obj.getAttribute("userCreated")) continue;
+
+    if (obj.elType === "point") {
+      obj.setAttribute({ color: obj.getAttribute("fixed") ? "black" : "red" });
+    } else if (obj.elType === "segment") {
+      obj.setAttribute({ color: "navy" });
+    }
+  }
 
   triangles = [];
   angles = [];
   intersecting_segments = [];
+  board.unsuspendUpdate();
 }
