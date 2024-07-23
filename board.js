@@ -14,7 +14,7 @@ let highlighted_point = undefined;
 
 function highlightPoint(point) {
   point.setAttribute({
-    color: "#00FF00",
+    strokeColor: "blue",
   });
   highlighted_point = point;
 }
@@ -54,6 +54,7 @@ function createPoint(coords, fixed = false) {
 }
 
 function handleDown(e) {
+  clearAnalysis();
   let coords = getMouseCoords(e);
   let objs = board.getAllUnderMouse(e);
 
@@ -101,14 +102,16 @@ function handleDown(e) {
   }
 
   if (!keep_highlight) unhighlightPoint();
-
-  analyzeBoard();
 }
 
 board.on("down", handleDown);
 
 board.on("move", (e) => {
   if (e.pressure != 0) unhighlightPoint();
+});
+
+board.on("up", () => {
+  analyzeBoard();
 });
 
 ///////////////////////////////////////////////////////////////////
