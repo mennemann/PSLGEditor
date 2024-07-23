@@ -240,6 +240,32 @@ function analyzeBoard() {
     );
   }
 
+  for (let i in segments) {
+    let part_of_triangle = false;
+
+    for (let j in triangles) {
+      if (
+        (segments[i].point1 === triangles[j].vertices[0] &&
+          segments[i].point2 === triangles[j].vertices[1]) ||
+        (segments[i].point1 === triangles[j].vertices[1] &&
+          segments[i].point2 === triangles[j].vertices[0]) ||
+        (segments[i].point1 === triangles[j].vertices[0] &&
+          segments[i].point2 === triangles[j].vertices[2]) ||
+        (segments[i].point1 === triangles[j].vertices[2] &&
+          segments[i].point2 === triangles[j].vertices[0]) ||
+        (segments[i].point1 === triangles[j].vertices[1] &&
+          segments[i].point2 === triangles[j].vertices[2]) ||
+        (segments[i].point1 === triangles[j].vertices[2] &&
+          segments[i].point2 === triangles[j].vertices[1])
+      ) {
+        part_of_triangle = true;
+        break;
+      }
+    }
+
+    if (!part_of_triangle) segments[i].setAttribute({ color: "red" });
+  }
+
   if (highlighted_point) highlightPoint(highlighted_point);
   board.unsuspendUpdate();
 }
