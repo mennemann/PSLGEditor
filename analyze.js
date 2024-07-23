@@ -254,6 +254,10 @@ function clearAnalysis() {
     board.removeObject(obj);
   });
 
+  intersecting_segments.forEach((obj) => {
+    obj.setAttribute({ color: "green" });
+  });
+
   triangles = [];
   angles = [];
   intersecting_segments = [];
