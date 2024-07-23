@@ -18,8 +18,36 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <div id="graph" class="jxgbox"></div>
+    <div id="container">
+      <div id="graph" class="jxgbox"></div>
 
+      <span id="text">
+        Welcome to my planar straight-line graph editor. <br />
+        <br />
+
+        Click on empty space to create a point.<br />
+        Click on a point to highlight it. A highlighted point has a blue rim.<br />
+        While a point is highlighted, click on another point to connect them
+        with a line segment.<br />
+        To fix a point in place, highlight it and press "f". To undo, do that
+        again.<br />
+
+        Points that are immovable are black.<br />
+
+        Press on a line segment to split it.<br />
+
+        To delete a line segment or a point, right-click it. <br />
+        <br />
+                You can drag points around. <br />
+                You can use the arrow keys to navigate and "+" and "-" to zoom. <br /> <br/ >
+
+        
+                After editing, the PSLG will be analyzed. Triangles will be recognized,<br /> 
+                points that are part of a triangle will be marked green.<br />
+        Non-obtuse angles will be marked green. <br />
+        <br />
+      </span>
+    </div>
     <script src="board.js"></script>
     <script src="analyze.js"></script>
   </body>

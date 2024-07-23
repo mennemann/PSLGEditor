@@ -1,5 +1,17 @@
+#container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
 #graph {
-  max-height: 90vh;
-  max-width: 90vw;
+  height: 90vmin;
+  width: 90vmin;
   aspect-ratio: 1/1;
+}
+
+#container > * {
+  margin: 10px;
 }
