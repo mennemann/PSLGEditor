@@ -151,7 +151,7 @@ board.on("move", (e) => {
 });
 
 board.on("up", () => {
-    analyzeBoard();
+    if (document.getElementById("autoanalyze").checked) analyzeBoard();
 });
 
 ///////////////////////////////////////////////////////////////////
