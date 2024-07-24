@@ -23,14 +23,24 @@
       <div id="graph" class="jxgbox"></div>
       <div id="buttons">
         <button onclick="autoZoom()">Auto Zoom</button>
-        <button onclick='alert("will be implemented soon")'>Import Graph</button>
-        <button onclick='alert("will be implemented soon")'>Export Graph</button>
+        <button onclick='alert("will be implemented soon")'>
+          Import Graph
+        </button>
+        <button onclick='alert("will be implemented soon")'>
+          Export Graph
+        </button>
         <button onclick="createExample()">Create Example</button>
         <div>
-          <input onchange='document.getElementById("analyze").style.display = document.getElementById("autoanalyze").checked ? "none" : "block"' id="autoanalyze" type="checkbox" checked>
+          <input id="autoanalyze" type="checkbox" checked />
           <label for="autoanalyze">Auto analyze</label>
         </div>
-        <button style="display:none" id="analyze" onclick="clearAnalysis();analyzeBoard()">Analyze</button>
+        <button
+          style="display: none"
+          id="analyze"
+          onclick="clearAnalysis();analyzeBoard()"
+        >
+          Analyze
+        </button>
       </div>
       <div id="markdown"></div>
     </div>
@@ -38,5 +48,14 @@
     <script src="analyze.js"></script>
     <script src="example.js"></script>
     <script src="markdown.js"></script>
+    <script>
+      document.getElementById("autoanalyze").addEventListener("change", (e) => {
+        let checked = e.target.checked;
+        document.getElementById("analyze").style.display = checked
+          ? "none"
+          : "block";
+        if (checked) analyzeBoard();
+      });
+    </script>
   </body>
 </html>
