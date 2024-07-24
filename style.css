@@ -1,3 +1,7 @@
+body * {
+  font-family: Segoe UI,Noto Sans,Helvetica,Arial,sans-serif;
+}
+
 #container {
   position: absolute;
   top: 0;
