@@ -38,4 +38,4 @@ To view the unanalyzed PSLG hold rightclick on empty space.
 feel free to reach out to me or create an [issue](https://github.com/mennemann/PSLGEditor/issues) with any bugs you discover.
 
 ---
-&copy; Marcin Mennemann 2024
+&copy; Marcin Mennemann 2024. View [license](https://raw.githubusercontent.com/mennemann/PSLGEditor/main/LICENSE)
