@@ -20,7 +20,9 @@ Click on a point
 
 To fix a point in place, highlight it, then press `f`. To loosen a point, do the same.
 
-Cick on a line segment: Split it
+Cick on a line segment:
++ while no point is selected: split it
++ while a point is selected: construct a segment from the highlighted point to the projection of the point onto the clicked segment
 
 To delete a line segment or a point, rightclick it
 

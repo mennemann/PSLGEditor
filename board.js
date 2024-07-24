@@ -67,10 +67,12 @@ function projectPointOnSegment(L, P) {
     const AB_AB = AB.x * AB.x + AB.y * AB.y;
 
     let t = AB_AB === 0 ? 0 : AB_AP / AB_AB;
+    let clamped = t < 0 || t > 1;
     t = Math.max(0, Math.min(1, t));
 
     return {
         usrCoords: [1, L.point1.X() + t * AB.x, L.point1.Y() + t * AB.y],
+        clamped: clamped,
     };
 }
 
@@ -105,13 +107,29 @@ function handleDown(e) {
                 createSegment(highlighted_point, pointHandle);
             }
         } else if (segmentHandle != undefined) {
-            // clicking segment (split)
+            // clicking segment
             let p1 = segmentHandle.point1;
             let p2 = segmentHandle.point2;
-            let p3 = createPoint(projectPointOnSegment(segmentHandle, coords));
-            board.removeObject(segmentHandle);
-            createSegment(p1, p3);
-            createSegment(p2, p3);
+            if (highlighted_point == undefined) {
+                let p3 = createPoint(
+                    projectPointOnSegment(segmentHandle, coords)
+                );
+                board.removeObject(segmentHandle);
+                createSegment(p1, p3);
+                createSegment(p2, p3);
+            } else {
+                p3 = projectPointOnSegment(
+                    segmentHandle,
+                    highlighted_point.coords
+                );
+                if (!p3.clamped) {
+                    p3 = createPoint(p3);
+                    createSegment(p3, highlighted_point);
+                    board.removeObject(segmentHandle);
+                    createSegment(p1, p3);
+                    createSegment(p2, p3);
+                }
+            }
         }
     } else if (e.button === 2) {
         // right click
@@ -210,20 +228,20 @@ document.onkeydown = function (e) {
 
 function autoZoom() {
   let [minX, maxX, minY, maxY] = [0,0,0,0]
-  
-  for(let id in board.objects) if (board.objects[id].elType === "point") {
-    if (board.objects[id].X() < minX) {
-      minX = board.objects[id].X();
-    } else if (board.objects[id].X() > maxX) {
-      maxX = board.objects[id].X();
-    }
 
-    if (board.objects[id].Y() < minY) {
-      minY = board.objects[id].Y();
-    } else if (board.objects[id].Y() > maxY) {
-      maxY = board.objects[id].Y();
-    }
-  }
+  for(let id in board.objects) if (board.objects[id].elType === "point") {
+            if (board.objects[id].X() < minX) {
+                minX = board.objects[id].X();
+            } else if (board.objects[id].X() > maxX) {
+                maxX = board.objects[id].X();
+            }
+
+            if (board.objects[id].Y() < minY) {
+                minY = board.objects[id].Y();
+            } else if (board.objects[id].Y() > maxY) {
+                maxY = board.objects[id].Y();
+            }
+        }
 
   board.setBoundingBox([minX,maxY,maxX,minY]);
 
