@@ -32,6 +32,8 @@ After editing the graph, it will be analyzed.
 
 Points/edges that are part of at least one triangle, non-obtuse angles and non-intersecting edges will be marked green.
 
+The convex hull of the PSLG will be shown in gray.
+
 To view the unanalyzed PSLG hold rightclick on empty space.
 
 
