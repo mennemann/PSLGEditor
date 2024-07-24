@@ -2,6 +2,16 @@ body * {
   font-family: Segoe UI,Noto Sans,Helvetica,Arial,sans-serif;
 }
 
+code {
+  background-color: #f8f8f8;
+  border-color: #dfdfdf;
+  border-style: solid;
+  border-width: 1px;
+  color: #333;
+  font-family: Consolas,"Liberation Mono",Courier,monospace;
+  padding: 0.125rem 0.3125rem 0.0625rem;
+}
+
 #container {
   position: absolute;
   top: 0;
