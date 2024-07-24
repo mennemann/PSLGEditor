@@ -207,3 +207,25 @@ document.onkeydown = function (e) {
             break;
     }
 };
+
+function autoZoom() {
+  let [minX, maxX, minY, maxY] = [0,0,0,0]
+  
+  for(let id in board.objects) if (board.objects[id].elType === "point") {
+    if (board.objects[id].X() < minX) {
+      minX = board.objects[id].X();
+    } else if (board.objects[id].X() > maxX) {
+      maxX = board.objects[id].X();
+    }
+
+    if (board.objects[id].Y() < minY) {
+      minY = board.objects[id].Y();
+    } else if (board.objects[id].Y() > maxY) {
+      maxY = board.objects[id].Y();
+    }
+  }
+
+  board.setBoundingBox([minX,maxY,maxX,minY]);
+
+  zoomBoundingBox(-0.1)
+}
