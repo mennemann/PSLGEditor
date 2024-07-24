@@ -104,7 +104,7 @@ function create_smallest_angle(anchor, p1, p2) {
             return ((a.Value() * 180) / Math.PI).toFixed(1) + "°";
         },
         color: () => {
-            return a.Value() > Math.PI / 2 ? "red" : "#00FF00";
+            return a.Value() > Math.PI / 2 + 1e-10 ? "red" : "#00FF00";
         },
     });
 
