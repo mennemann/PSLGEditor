@@ -227,24 +227,25 @@ document.onkeydown = function (e) {
 };
 
 function autoZoom() {
-    let [minX, maxX, minY, maxY] = [0, 0, 0, 0];
+  let [minX, maxX, minY, maxY] = [Infinity, -Infinity, Infinity, -Infinity];
 
-    for (let id in board.objects)
-        if (board.objects[id].elType === "point") {
-            if (board.objects[id].X() < minX) {
-                minX = board.objects[id].X();
-            } else if (board.objects[id].X() > maxX) {
-                maxX = board.objects[id].X();
-            }
+  let i = 0;
 
-            if (board.objects[id].Y() < minY) {
-                minY = board.objects[id].Y();
-            } else if (board.objects[id].Y() > maxY) {
-                maxY = board.objects[id].Y();
-            }
-        }
+  for (let id in board.objects)
+    if (board.objects[id].elType === "point") {
+      if (!board.objects[id].getAttribute("userCreated")) continue;
+      i++;
 
+      let x = board.objects[id].X();
+      let y = board.objects[id].Y();
+      minX = Math.min(x, minX);
+      maxX = Math.max(x, maxX);
+      minY = Math.min(y, minY);
+      maxY = Math.max(y, maxY);
+    }
+
+  if (i >= 2) {
     board.setBoundingBox([minX, maxY, maxX, minY]);
-
     zoomBoundingBox(-0.1);
+  }
 }
