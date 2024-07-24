@@ -7,11 +7,18 @@
 }
 
 #graph {
-  height: 90vmin;
-  width: 90vmin;
+  height: 85vmin;
+  width: 85vmin;
   aspect-ratio: 1/1;
 }
 
 #container > * {
   margin: 10px;
+}
+
+#buttons > * {
+  width: calc(15vw - 45px);
+  display: block;
+  margin-bottom: 10px;
+  font-size: 10pt;
 }

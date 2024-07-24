@@ -16,14 +16,17 @@
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/showdown@1.9.0/dist/showdown.min.js"></script>
 
-
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
     <div id="container">
       <div id="graph" class="jxgbox"></div>
+      <div id="buttons">
+        <button onclick='alert("will be implemented soon")'>Import Graph</button>
+        <button onclick='alert("will be implemented soon")'>Export Graph</button>
+        <button onclick="createExample()">Create Example</button>
+      </div>
       <div id="markdown"></div>
-      <button style="height:30px;"onclick="createExample()">Create Example</button>
     </div>
     <script src="board.js"></script>
     <script src="analyze.js"></script>
