@@ -1,6 +1,7 @@
 # PSLG Editor
 Its a viewer/editor for planar straight-line graphs.
-Visit [here](https://mennemann.github.io/PSLGEditor/)
+Visit [here](https://mennemann.github.io/PSLGEditor/).
+View code [here](https://github.com/mennemann/PSLGEditor/).
 
 ## Usage
 ### Navigation
