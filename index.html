@@ -54,7 +54,10 @@
         document.getElementById("analyze").style.display = checked
           ? "none"
           : "block";
-        if (checked) analyzeBoard();
+        if (checked) {
+          clearAnalysis();
+          analyzeBoard();
+        }
       });
     </script>
   </body>
