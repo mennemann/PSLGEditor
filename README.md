@@ -33,7 +33,9 @@ Points can be dragged around
 After editing the graph, it will be analyzed.
 
 Points/edges that are part of at least one triangle, non-obtuse angles and non-intersecting edges will be marked green.
+
 Note that due to floating point error, it is recommended to check exact 90° angles by hand.
+
 The convex hull of the PSLG will be shown in gray.
 
 To view the unanalyzed PSLG hold rightclick on empty space.

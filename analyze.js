@@ -342,7 +342,9 @@ function clearAnalysis() {
         if (!obj.getAttribute("userCreated")) continue;
 
         if (obj.elType === "point") {
-      obj.setAttribute({ color: obj.getAttribute("fixed") ? "black" : "red" });
+            obj.setAttribute({
+                color: obj.getAttribute("fixed") ? "black" : "red",
+            });
         } else if (obj.elType === "segment") {
             obj.setAttribute({ color: "#0072B2" });
         }

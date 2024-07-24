@@ -227,9 +227,10 @@ document.onkeydown = function (e) {
 };
 
 function autoZoom() {
-  let [minX, maxX, minY, maxY] = [0,0,0,0]
+    let [minX, maxX, minY, maxY] = [0, 0, 0, 0];
 
-  for(let id in board.objects) if (board.objects[id].elType === "point") {
+    for (let id in board.objects)
+        if (board.objects[id].elType === "point") {
             if (board.objects[id].X() < minX) {
                 minX = board.objects[id].X();
             } else if (board.objects[id].X() > maxX) {
@@ -243,7 +244,7 @@ function autoZoom() {
             }
         }
 
-  board.setBoundingBox([minX,maxY,maxX,minY]);
+    board.setBoundingBox([minX, maxY, maxX, minY]);
 
-  zoomBoundingBox(-0.1)
+    zoomBoundingBox(-0.1);
 }
