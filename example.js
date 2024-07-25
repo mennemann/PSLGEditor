@@ -21,5 +21,5 @@ function createExample() {
   createSegment(p6, p7);
   createSegment(p4, p7);
 
-  analyzeBoard();
+  if (document.getElementById("autoanalyze").checked) analyzeBoard();
 }
