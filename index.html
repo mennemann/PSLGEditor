@@ -23,10 +23,10 @@
       <div id="graph" class="jxgbox"></div>
       <div id="buttons">
         <button onclick="autoZoom()">Auto Zoom</button>
-        <button onclick='alert("will be implemented soon")'>
+        <button onclick="importPSLG()">
           Import Graph
         </button>
-        <button onclick='alert("will be implemented soon")'>
+        <button onclick="exportPSLG()">
           Export Graph
         </button>
         <button onclick="createExample()">Create Example</button>
@@ -47,6 +47,7 @@
     <script src="board.js"></script>
     <script src="analyze.js"></script>
     <script src="example.js"></script>
+    <script src="io.js"></script>
     <script src="markdown.js"></script>
     <script>
       document.getElementById("autoanalyze").addEventListener("change", (e) => {
