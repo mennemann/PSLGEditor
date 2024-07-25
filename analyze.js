@@ -47,6 +47,7 @@ function createConvexHull(points) {
         color: "gray",
         borders: {
             strokeColor: "none",
+            highlight: false,
         },
         fillOpacity: 0.5,
         layer: 0,
