@@ -249,6 +249,10 @@ function analyzeBoard() {
     console.timeEnd("checking for segment intersections")
     console.time("generating triangles")
 
+    let non_crossing_segments = segments.filter(
+        (x) => !intersecting_segments.includes(x)
+    );
+
     for (let i in points) {
         for (let j in points) {
             if (i === j) continue;
@@ -256,9 +260,9 @@ function analyzeBoard() {
                 if (i === k || j === k) continue;
                 if (
                     !(
-                        exists_edge(points[i], points[j], segments) &&
-                        exists_edge(points[i], points[k], segments) &&
-                        exists_edge(points[j], points[k], segments)
+                        exists_edge(points[i], points[j], non_crossing_segments) &&
+                        exists_edge(points[i], points[k], non_crossing_segments) &&
+                        exists_edge(points[j], points[k], non_crossing_segments)
                     )
                 )
                     continue;
