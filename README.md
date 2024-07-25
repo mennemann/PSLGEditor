@@ -7,9 +7,9 @@ Currently mobile devices are not supported and may cause unexpected behavior.
 
 ## Usage
 ### Navigation
-Use `← ↑ ↓ →` to move around.
+Use `← ↓ ↑ →` or the arrow keys to move around.
 
-Use `+` and `-` to zoom.
+Use `+` and `-` buttons/keys to zoom.
 
 
 ### Controls
