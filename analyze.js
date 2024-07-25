@@ -291,23 +291,19 @@ function analyzeBoard() {
             create_smallest_angle(
                 triangle.vertices[0],
                 triangle.vertices[1],
-        triangle.vertices[2],
-      ),
-        );
-        angles.push(
+                triangle.vertices[2],
+            ),
             create_smallest_angle(
                 triangle.vertices[1],
                 triangle.vertices[0],
-        triangle.vertices[2],
-      ),
-        );
-        angles.push(
+                triangle.vertices[2],
+            ),
             create_smallest_angle(
                 triangle.vertices[2],
                 triangle.vertices[1],
-        triangle.vertices[0],
-      ),
-        );
+                triangle.vertices[0],
+            )
+        )
     }
 
     console.timeEnd("generating angles")
@@ -340,13 +336,11 @@ function analyzeBoard() {
     }
 
     console.timeEnd("checking for abandoned segments")
-
-    if (highlighted_point) highlightPoint(highlighted_point);
-
     console.time("generating convex hull")
     convex_hull = createConvexHull(points);
     console.timeEnd("generating convex hull")
 
+    if (highlighted_point) highlightPoint(highlighted_point);
     board.unsuspendUpdate();
 }
 
