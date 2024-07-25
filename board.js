@@ -110,6 +110,12 @@ function handleDown(e) {
             // clicking segment
             let p1 = segmentHandle.point1;
             let p2 = segmentHandle.point2;
+            if (!p1.getAttribute("fixed") && !p2.getAttribute("fixed")) {
+                p1.setAttribute({ fixed: true });
+                segmentHandle.on("up", (e) => {
+                    p1.setAttribute({ fixed: false });
+                });
+            }
             if (highlighted_point == undefined) {
                 let p3 = createPoint(
                     projectPointOnSegment(segmentHandle, coords)
