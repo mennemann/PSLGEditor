@@ -85,10 +85,6 @@ function createTriangle(p1, p2, p3) {
         }
     }
 
-    p1.setAttribute({ color: "green" });
-    p2.setAttribute({ color: "green" });
-    p3.setAttribute({ color: "green" });
-
     return board.create("polygon", [p1, p2, p3]);
 }
 
@@ -284,10 +280,14 @@ function analyzeBoard() {
     });
 
     console.timeEnd("generating triangles")
-    console.time("generating angles")
+    console.time("generating angles + marking abandoned points")
 
     for (let i in triangles) {
         let triangle = triangles[i];
+        
+        triangle.vertices[0].setAttribute({ color: "green" });
+        triangle.vertices[1].setAttribute({ color: "green" });
+        triangle.vertices[2].setAttribute({ color: "green" });
 
         angles.push(
             create_smallest_angle(
@@ -308,7 +308,7 @@ function analyzeBoard() {
         )
     }
 
-    console.timeEnd("generating angles")
+    console.timeEnd("generating angles + marking abandoned points")
     console.time("checking for abandoned segments")
 
     for (let i in segments) {
