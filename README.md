@@ -32,7 +32,7 @@ Points can be dragged around
 
 
 ### Analysis
-After editing the graph, it will be analyzed.
+If `Auto analyze` is checked, the graph will be analyzed after editing. If not, press `Analyze` to analyze it.
 
 Points/edges that are part of at least one triangle, non-obtuse angles and non-intersecting edges will be marked green.
 
@@ -42,9 +42,12 @@ The convex hull of the PSLG will be shown in gray.
 
 To view the unanalyzed PSLG hold rightclick on empty space.
 
+### Importing/Exporting
+Will be implemented soon
 
-## Bugs
-feel free to reach out to me or create an [issue](https://github.com/mennemann/PSLGEditor/issues) with any bugs you discover.
+
+## Bugs and feature ideas
+feel free to reach out to me or create an [issue](https://github.com/mennemann/PSLGEditor/issues) with any bugs you discover or features you would like to see.
 
 ---
 &copy; Marcin Mennemann 2024. View [license](https://raw.githubusercontent.com/mennemann/PSLGEditor/main/LICENSE)
