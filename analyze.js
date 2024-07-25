@@ -207,6 +207,9 @@ let convex_hull = undefined;
 
 function analyzeBoard() {
     board.suspendUpdate();
+
+    console.time("populating point and segment lists")
+
     const points = [];
     const segments = [];
     for (let id in board.objects) {
@@ -221,6 +224,9 @@ function analyzeBoard() {
         }
     }
 
+    console.timeEnd("populating point and segment lists")
+    console.time("checking for segment intersections")
+    
     for (let i = 0; i < segments.length; i++) {
         for (let j = i + 1; j < segments.length; j++) {
             let intersect = doSegmentsIntersect(segments[i], segments[j]);
@@ -241,6 +247,9 @@ function analyzeBoard() {
             });
         }
     }
+
+    console.timeEnd("checking for segment intersections")
+    console.time("generating triangles")
 
     for (let i in points) {
         for (let j in points) {
@@ -272,6 +281,9 @@ function analyzeBoard() {
         return true;
     });
 
+    console.timeEnd("generating triangles")
+    console.time("generating angles")
+
     for (let i in triangles) {
         let triangle = triangles[i];
 
@@ -297,6 +309,9 @@ function analyzeBoard() {
       ),
         );
     }
+
+    console.timeEnd("generating angles")
+    console.time("checking for abandoned segments")
 
     for (let i in segments) {
         let part_of_triangle = false;
@@ -324,9 +339,13 @@ function analyzeBoard() {
         if (!part_of_triangle) segments[i].setAttribute({ color: "red" });
     }
 
+    console.timeEnd("checking for abandoned segments")
+
     if (highlighted_point) highlightPoint(highlighted_point);
 
+    console.time("generating convex hull")
     convex_hull = createConvexHull(points);
+    console.timeEnd("generating convex hull")
 
     board.unsuspendUpdate();
 }
