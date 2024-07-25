@@ -206,6 +206,8 @@ let intersecting_segments = [];
 let convex_hull = undefined;
 
 function analyzeBoard() {
+    console.log("starting analysis")
+    console.time("total analysis time")
     board.suspendUpdate();
 
     console.time("populating point and segment lists")
@@ -342,6 +344,8 @@ function analyzeBoard() {
 
     if (highlighted_point) highlightPoint(highlighted_point);
     board.unsuspendUpdate();
+    console.timeEnd("total analysis time")
+    console.log("analysis completed: " + points.length + " points, " + segments.length + " segments, " + triangles.length + " triangles")
 }
 
 function clearAnalysis() {
