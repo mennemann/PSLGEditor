@@ -3,6 +3,8 @@ Its a viewer/editor for planar straight-line graphs.
 Visit [here](https://mennemann.github.io/PSLGEditor/).
 View code [here](https://github.com/mennemann/PSLGEditor/).
 
+Currently mobile devices are not supported and may cause unexpected behavior.
+
 ## Usage
 ### Navigation
 Use `← ↑ ↓ →` to move around.
