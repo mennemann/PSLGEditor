@@ -45,12 +45,63 @@ function createSegment(p1, p2) {
 }
 
 function createPoint(coords, fixed = false) {
-    return board.create("point", [coords.usrCoords[1], coords.usrCoords[2]], {
+    let p = board.create("point", [coords.usrCoords[1], coords.usrCoords[2]], {
         name: "",
         color: fixed ? "black" : "red",
         userCreated: true,
         fixed: fixed,
     });
+
+    p.on("down", (e) => {
+        let points = [];
+        for (let id in board.objects) {
+            let obj = board.objects[id];
+            if (
+                obj.elementClass === JXG.OBJECT_CLASS_LINE &&
+                obj.getAttribute("userCreated")
+            ) {
+                if (obj.point1 == p) points.push(obj.point2);
+                if (obj.point2 == p) points.push(obj.point1);
+            }
+        }
+
+        p.attachedPoints = points;
+    });
+
+    p.on("up", (e) => {
+        p.attachedPoints = undefined;
+    });
+
+    p.on("drag", (e) => {
+        if (e.shiftKey) {
+            let points = p.attachedPoints;
+            
+            if (points == undefined || points.length != 2) return;
+
+            let L = {
+                point1: {
+                    X: () => {
+                        return points[0].coords.usrCoords[1];
+                    },
+                    Y: () => {
+                        return points[0].coords.usrCoords[2];
+                    },
+                },
+                point2: {
+                    X: () => {
+                        return points[1].coords.usrCoords[1];
+                    },
+                    Y: () => {
+                        return points[1].coords.usrCoords[2];
+                    },
+                },
+            };
+            const [, x, y] = projectPointOnSegment(L, p.coords).usrCoords;
+            p.setPosition(JXG.COORDS_BY_USER, [x, y]);
+        }
+    });
+
+    return p;
 }
 
 function projectPointOnSegment(L, P) {
