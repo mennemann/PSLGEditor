@@ -20,7 +20,7 @@ function highlightPoint(point) {
 }
 
 function unhighlightPoint() {
-    if (highlighted_point == undefined) return;
+    if (highlighted_point === undefined) return;
     highlighted_point.setAttribute({
         color: highlighted_point.getAttribute("fixed") ? "black" : "red",
     });
@@ -85,9 +85,9 @@ function handleDown(e) {
     let pointHandle = undefined;
 
     for (let i in objs) {
-        if (objs[i].elType === "segment" && segmentHandle == undefined)
+        if (objs[i].elType === "segment" && segmentHandle === undefined)
             segmentHandle = objs[i];
-        if (objs[i].elType === "point" && pointHandle == undefined)
+        if (objs[i].elType === "point" && pointHandle === undefined)
             pointHandle = objs[i];
     }
 
@@ -95,12 +95,12 @@ function handleDown(e) {
 
     if (e.button === 0) {
         // left click
-        if (pointHandle == undefined && segmentHandle == undefined) {
+        if (pointHandle === undefined && segmentHandle === undefined) {
             // clicking empty space
-            if (highlighted_point == undefined) createPoint(coords);
+            if (highlighted_point === undefined) createPoint(coords);
         } else if (pointHandle != undefined) {
             // clicking a point
-            if (highlighted_point == undefined) {
+            if (highlighted_point === undefined) {
                 highlightPoint(pointHandle);
                 keep_highlight = true;
             } else if (highlighted_point != pointHandle) {
@@ -116,7 +116,7 @@ function handleDown(e) {
                     p1.setAttribute({ fixed: false });
                 });
             }
-            if (highlighted_point == undefined) {
+            if (highlighted_point === undefined) {
                 let p3 = createPoint(
                     projectPointOnSegment(segmentHandle, coords)
                 );
@@ -163,7 +163,7 @@ board.on("up", () => {
 ///////////////////////////////////////////////////////////////////
 
 function toggle_highlighted_point_fixed() {
-    if (highlighted_point == undefined) return;
+    if (highlighted_point === undefined) return;
 
     let is_fixed = highlighted_point.getAttribute("fixed");
     highlighted_point.setAttribute({
