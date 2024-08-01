@@ -43,7 +43,13 @@ The convex hull of the PSLG will be shown in gray.
 To view the unanalyzed PSLG hold rightclick on empty space.
 
 ### Importing/Exporting
-Will be implemented soon
+You can import PSLGs according to the format specified by the [CG:SHOP SoCG Competition 2025](https://cgshop.ibr.cs.tu-bs.de/competition/cg-shop-2025/#instance-format).
+
+Files must be in `.json` format or compressed json format (`.json.xz`).
+
+Points added by importing are fixed by default.
+
+Exporting will be implemented soon.
 
 
 ## Bugs and feature ideas
