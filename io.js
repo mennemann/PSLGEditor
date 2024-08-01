@@ -26,6 +26,7 @@ function importPSLG() {
       let content = JSON.parse(text);
 
       clearBoard();
+      board.suspendUpdate();
 
       const points = [];
 
@@ -55,6 +56,8 @@ function importPSLG() {
               points[content.additional_constraints[i][1]]
           );
       }
+
+      board.unsuspendUpdate();
 
       autoZoom();
       if (document.getElementById("autoanalyze").checked) {

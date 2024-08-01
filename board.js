@@ -259,5 +259,7 @@ function autoZoom() {
 
 function clearBoard() {
     clearAnalysis();
+    board.suspendUpdate();
     board.removeObject(board.objectsList.filter(e => (e.elType === "point" || e.eltype === "segement") && e.getAttribute("userCreated")))
+    board.unsuspendUpdate();
 }
