@@ -202,11 +202,11 @@ let intersecting_segments = [];
 let convex_hull = undefined;
 
 function analyzeBoard() {
-    console.log("starting analysis")
-    console.time("total analysis time")
+    console.log("starting analysis");
+    console.time("total analysis time");
     board.suspendUpdate();
 
-    console.time("populating point and segment lists")
+    console.time("populating point and segment lists");
 
     const points = [];
     const segments = [];
@@ -222,9 +222,9 @@ function analyzeBoard() {
         }
     }
 
-    console.timeEnd("populating point and segment lists")
-    console.time("checking for segment intersections")
-    
+    console.timeEnd("populating point and segment lists");
+    console.time("checking for segment intersections");
+
     for (let i = 0; i < segments.length; i++) {
         for (let j = i + 1; j < segments.length; j++) {
             let intersect = doSegmentsIntersect(segments[i], segments[j]);
@@ -246,8 +246,8 @@ function analyzeBoard() {
         }
     }
 
-    console.timeEnd("checking for segment intersections")
-    console.time("generating triangles")
+    console.timeEnd("checking for segment intersections");
+    console.time("generating triangles");
 
     let non_crossing_segments = segments.filter(
         (x) => !intersecting_segments.includes(x)
@@ -260,8 +260,16 @@ function analyzeBoard() {
                 if (i === k || j === k) continue;
                 if (
                     !(
-                        exists_edge(points[i], points[j], non_crossing_segments) &&
-                        exists_edge(points[i], points[k], non_crossing_segments) &&
+                        exists_edge(
+                            points[i],
+                            points[j],
+                            non_crossing_segments
+                        ) &&
+                        exists_edge(
+                            points[i],
+                            points[k],
+                            non_crossing_segments
+                        ) &&
                         exists_edge(points[j], points[k], non_crossing_segments)
                     )
                 )
@@ -283,12 +291,12 @@ function analyzeBoard() {
         return true;
     });
 
-    console.timeEnd("generating triangles")
-    console.time("generating angles + marking abandoned points")
+    console.timeEnd("generating triangles");
+    console.time("generating angles + marking abandoned points");
 
     for (let i in triangles) {
         let triangle = triangles[i];
-        
+
         triangle.vertices[0].setAttribute({ color: "green" });
         triangle.vertices[1].setAttribute({ color: "green" });
         triangle.vertices[2].setAttribute({ color: "green" });
@@ -297,23 +305,23 @@ function analyzeBoard() {
             create_smallest_angle(
                 triangle.vertices[0],
                 triangle.vertices[1],
-                triangle.vertices[2],
+                triangle.vertices[2]
             ),
             create_smallest_angle(
                 triangle.vertices[1],
                 triangle.vertices[0],
-                triangle.vertices[2],
+                triangle.vertices[2]
             ),
             create_smallest_angle(
                 triangle.vertices[2],
                 triangle.vertices[1],
-                triangle.vertices[0],
+                triangle.vertices[0]
             )
-        )
+        );
     }
 
-    console.timeEnd("generating angles + marking abandoned points")
-    console.time("checking for abandoned segments")
+    console.timeEnd("generating angles + marking abandoned points");
+    console.time("checking for abandoned segments");
 
     for (let i in segments) {
         let part_of_triangle = false;
@@ -341,15 +349,23 @@ function analyzeBoard() {
         if (!part_of_triangle) segments[i].setAttribute({ color: "red" });
     }
 
-    console.timeEnd("checking for abandoned segments")
-    console.time("generating convex hull")
+    console.timeEnd("checking for abandoned segments");
+    console.time("generating convex hull");
     convex_hull = createConvexHull(points);
-    console.timeEnd("generating convex hull")
+    console.timeEnd("generating convex hull");
 
     if (highlighted_point) highlightPoint(highlighted_point);
     board.unsuspendUpdate();
-    console.timeEnd("total analysis time")
-    console.log("analysis completed: " + points.length + " points, " + segments.length + " segments, " + triangles.length + " triangles")
+    console.timeEnd("total analysis time");
+    console.log(
+        "analysis completed: " +
+            points.length +
+            " points, " +
+            segments.length +
+            " segments, " +
+            triangles.length +
+            " triangles"
+    );
 }
 
 function clearAnalysis() {

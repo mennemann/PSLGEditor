@@ -233,33 +233,38 @@ document.onkeydown = function (e) {
 };
 
 function autoZoom() {
-  let [minX, maxX, minY, maxY] = [Infinity, -Infinity, Infinity, -Infinity];
+    let [minX, maxX, minY, maxY] = [Infinity, -Infinity, Infinity, -Infinity];
 
-  let i = 0;
+    let i = 0;
 
-  for (let id in board.objects)
-    if (board.objects[id].elType === "point") {
-      if (!board.objects[id].getAttribute("userCreated")) continue;
-      i++;
+    for (let id in board.objects)
+        if (board.objects[id].elType === "point") {
+            if (!board.objects[id].getAttribute("userCreated")) continue;
+            i++;
 
-      let x = board.objects[id].X();
-      let y = board.objects[id].Y();
-      minX = Math.min(x, minX);
-      maxX = Math.max(x, maxX);
-      minY = Math.min(y, minY);
-      maxY = Math.max(y, maxY);
+            let x = board.objects[id].X();
+            let y = board.objects[id].Y();
+            minX = Math.min(x, minX);
+            maxX = Math.max(x, maxX);
+            minY = Math.min(y, minY);
+            maxY = Math.max(y, maxY);
+        }
+
+    if (i >= 2) {
+        board.setBoundingBox([minX, maxY, maxX, minY]);
+        zoomBoundingBox(-0.1);
     }
-
-  if (i >= 2) {
-    board.setBoundingBox([minX, maxY, maxX, minY]);
-    zoomBoundingBox(-0.1);
-  }
 }
-
 
 function clearBoard() {
     clearAnalysis();
     board.suspendUpdate();
-    board.removeObject(board.objectsList.filter(e => (e.elType === "point" || e.eltype === "segement") && e.getAttribute("userCreated")))
+    board.removeObject(
+        board.objectsList.filter(
+            (e) =>
+                (e.elType === "point" || e.eltype === "segement") &&
+                e.getAttribute("userCreated")
+        )
+    );
     board.unsuspendUpdate();
 }
