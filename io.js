@@ -57,8 +57,13 @@ function importPSLG() {
       }
 
       autoZoom();
-      if (points.length > 30) document.getElementById("autoanalyze").checked = false;
-      if (document.getElementById("autoanalyze").checked) analyzeBoard();
+      if (document.getElementById("autoanalyze").checked) {
+          if (points.length > 30) {
+              document.getElementById("autoanalyze").click();
+          } else {
+              analyzeBoard();
+          }
+      }
     } catch (error) {
       alert(
         "Error reading file. Read the section about importing and exporting for further information",
