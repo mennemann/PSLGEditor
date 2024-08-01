@@ -1,14 +1,13 @@
+let points = [];
+let segments = [];
 let triangles = [];
 let angles = [];
-let intersecting_segments = [];
 let convex_hull = undefined;
 
 function analyzeBoard() {
     if (!wasmLoaded) return;
+    board.suspendUpdate();
     console.time("total analysis time");
-
-    const points = [];
-    const segments = [];
 
     for (let id in board.objects) {
         const obj = board.objects[id];
@@ -66,7 +65,7 @@ function analyzeBoard() {
         segments_flat_ptr / segments_flat.BYTES_PER_ELEMENT
     );
 
-    const result = Module._analyze(
+    Module._analyze(
         num_points,
         points_x_ptr,
         points_y_ptr,
@@ -78,9 +77,8 @@ function analyzeBoard() {
     Module._free(points_y_ptr);
     Module._free(segments_flat_ptr);
 
-    // implement result handling here
-
     console.timeEnd("total analysis time");
+    board.unsuspendUpdate();
 }
 
 function clearAnalysis() {
@@ -103,9 +101,10 @@ function clearAnalysis() {
         }
     }
 
+    points = [];
+    segments = [];
     triangles = [];
     angles = [];
-    intersecting_segments = [];
     convex_hull = undefined;
     board.unsuspendUpdate();
 }
