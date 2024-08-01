@@ -25,7 +25,40 @@ function importPSLG() {
 
       let content = JSON.parse(text);
 
-      console.log(file.name, text, content);
+      clearBoard();
+
+      const points = [];
+
+      for (let i = 0; i < content.num_points; i++) {
+          points.push(
+              createPoint(
+                  { usrCoords: [1, content.points_x[i], content.points_y[i]] },
+                  true
+              )
+          );
+      }
+
+      for (let i = 0; i < content.region_boundary.length; i++) {
+          createSegment(
+              points[content.region_boundary[i]],
+              points[
+                  content.region_boundary[
+                      (i + 1) % content.region_boundary.length
+                  ]
+              ]
+          );
+      }
+
+      for (let i = 0; i < content.additional_constraints.length; i++) {
+          createSegment(
+              points[content.additional_constraints[i][0]],
+              points[content.additional_constraints[i][1]]
+          );
+      }
+
+      autoZoom();
+      if (points.length > 30) document.getElementById("autoanalyze").checked = false;
+      if (document.getElementById("autoanalyze").checked) analyzeBoard();
     } catch (error) {
       alert(
         "Error reading file. Read the section about importing and exporting for further information",
