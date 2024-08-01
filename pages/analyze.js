@@ -1,3 +1,60 @@
+function createConvexHull(points) {
+    function cross(o, a, b) {
+        return (
+            (a.X() - o.X()) * (b.Y() - o.Y()) -
+            (a.Y() - o.Y()) * (b.X() - o.X())
+        );
+    }
+
+    points.sort((a, b) => {
+        return a.X() === b.X() ? a.Y() - b.Y() : a.X() - b.X();
+    });
+
+    let lower = [];
+    for (let i = 0; i < points.length; i++) {
+        while (
+            lower.length >= 2 &&
+            cross(
+                lower[lower.length - 2],
+                lower[lower.length - 1],
+                points[i]
+            ) <= 0
+        )
+            lower.pop();
+
+        lower.push(points[i]);
+    }
+
+    let upper = [];
+    for (let i = points.length - 1; i >= 0; i--) {
+        while (
+            upper.length >= 2 &&
+            cross(
+                upper[upper.length - 2],
+                upper[upper.length - 1],
+                points[i]
+            ) <= 0
+        )
+            upper.pop();
+
+        upper.push(points[i]);
+    }
+
+    upper.pop();
+    lower.pop();
+
+    return board.create("polygon", lower.concat(upper), {
+        color: "gray",
+        borders: {
+            strokeColor: "none",
+            highlight: false,
+        },
+        fillOpacity: 0.5,
+        layer: 0,
+        highlight: false,
+    });
+}
+
 let points = [];
 let segments = [];
 let triangles = [];
@@ -76,6 +133,8 @@ function analyzeBoard() {
     Module._free(points_x_ptr);
     Module._free(points_y_ptr);
     Module._free(segments_flat_ptr);
+
+    convex_hull = createConvexHull(points);
 
     console.timeEnd("total analysis time");
     board.unsuspendUpdate();
