@@ -1,7 +1,5 @@
-let created = false;
 function createExample() {
-  if (created) return;
-  created = true;
+  clearBoard();
 
   const p1 = createPoint({ usrCoords: [1, -7, -5] }, false);
   const p2 = createPoint({ usrCoords: [1, -2, -4] }, false);
@@ -22,4 +20,5 @@ function createExample() {
   createSegment(p4, p7);
 
   if (document.getElementById("autoanalyze").checked) analyzeBoard();
+  autoZoom();
 }

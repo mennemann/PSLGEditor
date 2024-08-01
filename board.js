@@ -255,3 +255,9 @@ function autoZoom() {
     zoomBoundingBox(-0.1);
   }
 }
+
+
+function clearBoard() {
+    clearAnalysis();
+    board.removeObject(board.objectsList.filter(e => (e.elType === "point" || e.eltype === "segement") && e.getAttribute("userCreated")))
+}
