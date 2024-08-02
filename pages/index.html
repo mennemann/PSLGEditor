@@ -62,5 +62,12 @@
         }
       });
     </script>
+    <script src="build/wasm.js"></script>
+    <script>
+      let wasmLoaded = false;
+      Module.onRuntimeInitialized = () => {
+        wasmLoaded = true;
+      }
+    </script>
   </body>
 </html>
