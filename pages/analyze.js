@@ -97,7 +97,6 @@ function analyzeBoard() {
             if (segments[i].point1 === points[j]) p1 = j;
             if (segments[i].point2 === points[j]) p2 = j;
         }
-        assert(p1 !== undefined && p2 !== undefined);
         segments_flat.push(p1, p2);
     }
 

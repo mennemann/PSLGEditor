@@ -45,7 +45,7 @@ jobs:
         run: |
           source ./emsdk/emsdk_env.sh
           mkdir pages/build/
-          emcc analyze.cpp -o pages/build/wasm.js -s EXPORTED_FUNCTIONS="['_analyze', '_malloc', '_free']" -s EXPORTED_RUNTIME_METHODS="['getValue']" -s WASM=1
+          emcc analyze.cpp -o pages/build/wasm.js -s EXPORTED_FUNCTIONS="['_analyze', '_malloc', '_free']" -s EXPORTED_RUNTIME_METHODS="['getValue']" -s WASM=1 -O3
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
