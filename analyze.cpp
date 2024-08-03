@@ -10,6 +10,10 @@ EM_JS(void, console_log, (const char* str), {
     console.log(UTF8ToString(str));
 });
 
+EM_JS(void, timerStart, (const char* str), {console.time(UTF8ToString(str))});
+
+EM_JS(void, timerEnd, (const char* str), {console.timeEnd(UTF8ToString(str))});
+
 extern "C" {
 
 struct Point {
@@ -129,6 +133,8 @@ void analyze(int num_points, double* points_x, double* points_y, int num_segment
         segments[i] = {i, points[segments_flat[i * 2]], points[segments_flat[i * 2 + 1]]};
     }
 
+    timerStart("checking for segment intersections");
+
     unordered_set<int> crossing_segment_ids;
 
     for (int i = 0; i < num_segments; i++) {
@@ -145,6 +151,9 @@ void analyze(int num_points, double* points_x, double* points_y, int num_segment
     for (int i = 0; i < num_segments; i++) {
         if (crossing_segment_ids.find(i) == crossing_segment_ids.end()) non_crossing_segment_ids.insert(i);
     }
+
+    timerEnd("checking for segment intersections");
+    timerStart("generating triangles");
 
     vector<Triangle> possible_triangles;
 
@@ -164,6 +173,9 @@ void analyze(int num_points, double* points_x, double* points_y, int num_segment
     vector<Triangle> triangles;
 
     copy_if(possible_triangles.begin(), possible_triangles.end(), back_inserter(triangles), [points, num_points](Triangle T) { return !isPointInTriangle(T, points, num_points); });
+
+    timerEnd("generating triangles");
+    timerStart("generating angles");
 
     vector<Angle> angles;
 
@@ -194,6 +206,9 @@ void analyze(int num_points, double* points_x, double* points_y, int num_segment
         }
     }
 
+    timerEnd("generating angles");
+    timerStart("checking for abandoned segments");
+
     vector<int> abandoned_segment_ids;
     for (int i = 0; i < num_segments; i++) {
         bool part_of_triangle = false;
@@ -219,7 +234,8 @@ void analyze(int num_points, double* points_x, double* points_y, int num_segment
         if (!part_of_triangle) abandoned_segment_ids.push_back(i);
     }
 
-    // output stage
+    timerEnd("checking for abandoned segments");
+    timerStart("drawing results");
 
     for (const auto& id : non_crossing_segment_ids) {
         EM_ASM({ segments[$0].setAttribute({color : "green"}); }, id);
@@ -257,6 +273,7 @@ void analyze(int num_points, double* points_x, double* points_y, int num_segment
 },angle.p1, angle.anchor, angle.p2);
 }
 
+timerEnd("drawing results");
 delete[] points;
 delete[] segments;
 }

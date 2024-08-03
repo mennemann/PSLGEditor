@@ -78,6 +78,10 @@ function analyzeBoard() {
         }
     }
 
+    console.time("generating convex hull");
+    convex_hull = createConvexHull(points);
+    console.timeEnd("generating convex hull");
+
     const num_points = points.length;
     const num_segments = segments.length;
 
@@ -132,8 +136,6 @@ function analyzeBoard() {
     Module._free(points_x_ptr);
     Module._free(points_y_ptr);
     Module._free(segments_flat_ptr);
-
-    convex_hull = createConvexHull(points);
 
     if (highlighted_point) highlightPoint(highlighted_point);
 
