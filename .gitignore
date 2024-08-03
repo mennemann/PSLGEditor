@@ -1,3 +1,5 @@
 pages/build
 build.cmd
 build.sh
+
+.vscode/
