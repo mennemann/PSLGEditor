@@ -135,6 +135,8 @@ function analyzeBoard() {
 
     convex_hull = createConvexHull(points);
 
+    if (highlighted_point) highlightPoint(highlighted_point);
+
     console.timeEnd("total analysis time");
     board.unsuspendUpdate();
 }
