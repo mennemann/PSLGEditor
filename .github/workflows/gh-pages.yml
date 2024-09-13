@@ -38,15 +38,18 @@ jobs:
           cd emsdk
           ./emsdk install latest
           ./emsdk activate latest
-          source ./emsdk_env.sh
-        shell: bash
+      
+      - name: Setup CMake
+        run: apt update && apt install -y cmake
 
-      - name: Build with Emscripten
+      - name: Build
         run: |
           source ./emsdk/emsdk_env.sh
-          mkdir pages/build/
-          emcc analyze.cpp -o pages/build/wasm.js -s EXPORTED_FUNCTIONS="['_analyze', '_malloc', '_free']" -s EXPORTED_RUNTIME_METHODS="['getValue', 'UTF8ToString']" -s WASM=1 -O3
-      
+          mkdir wasm/build/
+          cd wasm/build
+          emcmake cmake ..
+          emmake make
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
