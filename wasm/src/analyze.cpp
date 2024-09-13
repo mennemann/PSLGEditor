@@ -4,6 +4,8 @@
 #include <unordered_set>
 #include <vector>
 
+#include "Geometry.hpp"
+
 using namespace std;
 
 EM_JS(void, console_log, (const char* str), {
@@ -15,33 +17,6 @@ EM_JS(void, timerStart, (const char* str), {console.time(UTF8ToString(str))});
 EM_JS(void, timerEnd, (const char* str), {console.timeEnd(UTF8ToString(str))});
 
 extern "C" {
-
-struct Point {
-    int id;
-    double x, y;
-
-    std::string str() {
-        return "[" + std::to_string(x) + "," + std::to_string(y) + "]";
-    }
-};
-
-struct Segment {
-    int id;
-    Point p1, p2;
-
-    std::string str() {
-        return p1.str() + " --- " + p2.str();
-    }
-};
-
-struct Triangle {
-    int p1, p2, p3;
-};
-
-struct Angle {
-    int p1, anchor, p2;
-};
-
 
 void populate_data_structures(int num_points, double* points_x, double* points_y, int num_segments, int* segments_flat, Point* points, Segment* segments) {
     for (int i = 0; i < num_points; i++) {
