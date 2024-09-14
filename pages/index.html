@@ -44,6 +44,7 @@
         </button>
       </div>
       <div id="markdown"></div>
+      <div id="commit"></div>
     </div>
     <script src="board.js"></script>
     <script src="analyze.js"></script>
@@ -64,6 +65,9 @@
     </script>
     <script src="build/wasm.js"></script>
     <script>
+      fetch("COMMIT_SHA").then(res => res.text()).then(text => {
+        document.getElementById("commit").innerHTML = text;
+      })
       let wasmLoaded = false;
       Module.onRuntimeInitialized = () => {
         wasmLoaded = true;

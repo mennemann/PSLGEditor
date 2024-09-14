@@ -50,6 +50,10 @@ jobs:
           cd wasm/build
           emcmake cmake ..
           emmake make
+      
+      - name: Save Commit Hash
+        run: |
+          echo $GITHUB_SHA > pages/COMMIT_SHA
 
       - name: Upload artifact
         if: ${{ !env.ACT }}
