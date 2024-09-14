@@ -18,16 +18,6 @@ EM_JS(void, timerEnd, (const char* str), {console.timeEnd(UTF8ToString(str))});
 
 extern "C" {
 
-void populate_data_structures(int num_points, double* points_x, double* points_y, int num_segments, int* segments_flat, Point* points, Segment* segments) {
-    for (int i = 0; i < num_points; i++) {
-        points[i] = {i, points_x[i], points_y[i]};
-    }
-
-    for (int i = 0; i < num_segments; i++) {
-        segments[i] = {i, points[segments_flat[i * 2]], points[segments_flat[i * 2 + 1]]};
-    }
-}
-
 int orientation(Point p, Point q, Point r) {
     double val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
     if (val == 0) return 0;
