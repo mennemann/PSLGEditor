@@ -30,6 +30,7 @@ jobs:
         uses: actions/checkout@v4
       
       - name: Setup Pages
+        if: ${{ !env.ACT }}
         uses: actions/configure-pages@v5
 
       - name: Setup Emscripten
@@ -51,6 +52,7 @@ jobs:
           emmake make
 
       - name: Upload artifact
+        if: ${{ !env.ACT }}
         uses: actions/upload-pages-artifact@v3
         with:
           path: pages
@@ -64,5 +66,6 @@ jobs:
     needs: build
     steps:
       - name: Deploy to GitHub Pages
+        if: ${{ !env.ACT }}
         id: deployment
         uses: actions/deploy-pages@v4
