@@ -51,6 +51,10 @@ Points added by importing are fixed by default.
 
 Exporting will be implemented soon.
 
+### Constrained Delaunay triangulation
+You can generate the CDT of the current PSLG by pressing `Generate Constrained Delaunay Triangulation`.
+
+The current input must not break any PSLG constraints.
 
 ## Bugs and feature ideas
 feel free to reach out to me or create an [issue](https://github.com/mennemann/PSLGEditor/issues) with any bugs you discover or features you would like to see.
