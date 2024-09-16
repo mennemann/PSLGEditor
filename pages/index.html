@@ -44,7 +44,7 @@
         </button>
       </div>
       <div id="markdown"></div>
-      <div id="commit"></div>
+      <div id="commit" style="flex-basis: 100%;"></div>
     </div>
     <script src="board.js"></script>
     <script src="analyze.js"></script>
@@ -65,9 +65,11 @@
     </script>
     <script src="build/wasm.js"></script>
     <script>
-      fetch("COMMIT_SHA").then(res => res.text()).then(text => {
-        document.getElementById("commit").innerHTML = text;
-      })
+      fetch("COMMIT_SHA").then(res => {
+        if (res.ok) {
+              res.text().then(text => {document.getElementById("commit").innerHTML = text})
+        } else {document.getElementById("commit").innerHTML = "commit hash not found"}
+      });
       let wasmLoaded = false;
       Module.onRuntimeInitialized = () => {
         wasmLoaded = true;
