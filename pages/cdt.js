@@ -1,4 +1,17 @@
 function cdt() {
+    clearAnalysis();
+    for (let id in board.objects) {
+        const obj = board.objects[id];
+
+        if (!obj.getAttribute("userCreated")) continue;
+
+        if (obj.elType === "point") {
+            points.push(obj);
+        } else if (obj.elType === "segment") {
+            segments.push(obj);
+        }
+    }
+
     let w = convertforwasm()
 
     const points_x_ptr = Module._malloc(
@@ -29,4 +42,6 @@ function cdt() {
     Module._free(points_x_ptr);
     Module._free(points_y_ptr);
     Module._free(segments_flat_ptr);
+    clearAnalysis();
+    if (document.getElementById("autoanalyze").checked) analyzeBoard();
 }
