@@ -82,54 +82,30 @@ function analyzeBoard() {
     convex_hull = createConvexHull(points);
     console.timeEnd("generating convex hull");
 
-    const num_points = points.length;
-    const num_segments = segments.length;
-
-    let points_x = [];
-    let points_y = [];
-
-    for (let i = 0; i < num_points; i++) {
-        points_x.push(points[i].coords.usrCoords[1]);
-        points_y.push(points[i].coords.usrCoords[2]);
-    }
-
-    let segments_flat = [];
-
-    for (let i = 0; i < num_segments; i++) {
-        let p1, p2;
-        for (let j = 0; j < num_points; j++) {
-            if (segments[i].point1 === points[j]) p1 = j;
-            if (segments[i].point2 === points[j]) p2 = j;
-        }
-        segments_flat.push(p1, p2);
-    }
-
-    points_x = new Float64Array(points_x);
-    points_y = new Float64Array(points_y);
-    segments_flat = new Int32Array(segments_flat);
+    let w = convertforwasm()
 
     const points_x_ptr = Module._malloc(
-        points_x.length * points_x.BYTES_PER_ELEMENT
+        w.points_x.length * w.points_x.BYTES_PER_ELEMENT
     );
     const points_y_ptr = Module._malloc(
-        points_y.length * points_y.BYTES_PER_ELEMENT
+        w.points_y.length * w.points_y.BYTES_PER_ELEMENT
     );
     const segments_flat_ptr = Module._malloc(
-        segments_flat.length * segments_flat.BYTES_PER_ELEMENT
+        w.segments_flat.length * w.segments_flat.BYTES_PER_ELEMENT
     );
 
-    Module.HEAPF64.set(points_x, points_x_ptr / points_x.BYTES_PER_ELEMENT);
-    Module.HEAPF64.set(points_y, points_y_ptr / points_y.BYTES_PER_ELEMENT);
+    Module.HEAPF64.set(w.points_x, points_x_ptr / w.points_x.BYTES_PER_ELEMENT);
+    Module.HEAPF64.set(w.points_y, points_y_ptr / w.points_y.BYTES_PER_ELEMENT);
     Module.HEAP32.set(
-        segments_flat,
-        segments_flat_ptr / segments_flat.BYTES_PER_ELEMENT
+        w.segments_flat,
+        segments_flat_ptr / w.segments_flat.BYTES_PER_ELEMENT
     );
 
     Module._analyze(
-        num_points,
+        w.num_points,
         points_x_ptr,
         points_y_ptr,
-        num_segments,
+        w.num_segments,
         segments_flat_ptr
     );
 
