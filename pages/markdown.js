@@ -1,4 +1,4 @@
-fetch("https://raw.githubusercontent.com/mennemann/PSLGEditor/main/README.md")
+fetch("README.md")
     .then((res) => res.text())
     .then((markdown) => {
         const converter = new showdown.Converter();

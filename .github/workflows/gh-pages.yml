@@ -45,6 +45,7 @@ jobs:
 
       - name: Build
         run: |
+          cp README.md pages/README.md
           source ./emsdk/emsdk_env.sh
           mkdir wasm/build/
           cd wasm/build
