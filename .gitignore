@@ -2,4 +2,5 @@ pages/build
 build.cmd
 build.sh
 
+pages/README.md
 .vscode/
